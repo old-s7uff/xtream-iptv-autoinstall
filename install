@@ -39,6 +39,10 @@ setup() {
        sudo update-rc.d apache2 disable
 }
 
+#phpmyadmin() {
+#
+#}
+
 if [ "$1" == 'INSTALL' ]; then
         rT; OS; setup;
    else
