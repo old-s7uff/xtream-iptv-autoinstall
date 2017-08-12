@@ -23,33 +23,24 @@ setup() {
        apt-get update; apt-get upgrade -y; apt-get dist-upgrade -y
        apt-get install build-essential bc systemd-services lshw libssl-dev wget ruby git nano curl zip unzip python -y
        apt-get autoremove -y
-}
-
-dirs() {
+       apt-get install mysql-server mysql-client -y
        mkdir -p /opt/
        rm -Rf /tmp; mkdir -p /tmp; chmod -R 7777 /tmp
-}
-
-raw() {
-       curl -s -LA "Raws InS" "http://bit.ly/2oflwVi" | bash -s INSTALL
-       raws iapache
-       apt-get install nscd -y
-}
-
-get() {
-       cd /var/www; rm -Rf html/
-       wget http://cdn.systemroot.co/ex/ip.tgz
-       tar -xvzf ip.tgz
-       cd html/
-       rm -Rf index.html; curl -s -O https://raw.githubusercontent.com/systemroot/raws-dev/master/static/apache/index.html
        cd ~
-       wget http://127.0.0.1/downloads/iptv_panel_pro.zip -O /tmp/iptv_panel_pro.zip
-       wget http://127.0.0.1/downloads/install_iptv_pro.zip && unzip install_iptv_pro.zip; rm -Rf install_iptv_pro.zip
+       wget http://cdn.systemroot.co/ex/downloads/iptv_panel_pro.zip -O /tmp/iptv_panel_pro.zip
+       wget http://cdn.systemroot.co/ex/downloads/install_iptv_pro.zip && unzip install_iptv_pro.zip; rm -Rf install_iptv_pro.zip
        php install_iptv_pro.php
+       cd /home/xtreamcodes/iptv_xtream_codes/nginx/conf/; rm -Rf nginx.conf
+       wget https://raw.githubusercontent.com/systemroot/xtream-iptv-autoinstall/master/extra/nginx.conf
+       killall nginx
+       cd /home/xtreamcodes/iptv_xtream_codes/nginx/sbin/
+       ./nginx
+       sudo update-rc.d -f apache2 remove
+       sudo update-rc.d apache2 disable
 }
 
 if [ "$1" == 'INSTALL' ]; then
-        rT; OS; setup; dirs; raw;
+        rT; OS; setup;
    else
         echo "Dear Mr. IDIOT."
         echo "Please Use The Fucking Command As iT iS On Github.!"
